@@ -1,0 +1,55 @@
+
+language ESSENCE' 1.0
+
+$ assigning constant IDs to all the family members
+letting mum = 1
+letting brother = 2
+letting grandma = 3
+letting grandpa = 4
+letting cousin = 5
+letting aunt = 6
+letting uncle = 7
+letting significantother = 8
+letting FAMILY be domain int(mum..significantother)
+
+$ assigning constant IDs to all the Gift members
+letting cd = 1
+letting socks = 2
+letting chocolates = 3
+letting coffee = 4
+letting GIFT be domain int(cd..coffee)
+
+letting budget = 52
+letting cost_cd = 10
+letting cost_socks = 7
+letting cost_chocolates = 4
+letting cost_coffee = 12
+
+
+find M: matrix indexed by [FAMILY, GIFT] of int(0,1)
+
+such that
+
+$ 1. each person must get exactly one present
+forAll person : FAMILY . sum(M[person,..]) = 1,
+
+
+$8. Your cousin must not get socks
+M[cousin,socks]= 0,
+
+$9. There is only one cofee mill in the shop
+sum(M[..,coffee]) <=1,
+
+$10. There are no more than 2 CDs in the shop
+sum(M[..,cd]) <=2,
+
+$11. There are no more than 4 boxes of chocolates in the shop
+sum(M[..,chocolates]) <=4,
+
+$12. your brother must get a CD
+M[brother,cd]= 1,
+
+$13. nobody gets chocolates
+sum(M[..,chocolates]) <=0
+
+	 
